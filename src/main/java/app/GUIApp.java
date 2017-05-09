@@ -29,8 +29,8 @@ public class GUIApp {
 
 
         double secondPerTick = 0.2;
-        ball = new Ball(Point2D.ZERO, 100, 0.01);
-        ball.lauch(1000000, 80);
+        ball = new Ball(Point2D.ZERO, 100, 0.05);
+        ball.lauch(200000, 80);
         game = new Game(ball);
         créationPlateau();
         KeyAdapter keykey = new KeyAdapter() {

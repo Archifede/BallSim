@@ -32,7 +32,7 @@ public class Physics {
                 -tau * (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g * deltaT + coordinates.getY() + tau * (celerity.getY() + tau * g));
         if (coordinates.getY() <= 30 && celerity.getY() < 0)
             celerity = new Point2D(
-                    celerity.getX() * Math.exp(-deltaT / tau), -(
+                    celerity.getX() * Math.exp(-deltaT / tau), (-0.66)*(
                     (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
         else
             celerity = new Point2D(
