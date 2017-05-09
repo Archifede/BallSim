@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import logic.Physics;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,9 @@ import java.awt.event.MouseEvent;
  * @since 09 mai 17h16
  */
 public class GUIApp {
+    public static final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    public static final int WIDTH = gd.getDisplayMode().getWidth();
+    public static final int HEIGHT = gd.getDisplayMode().getHeight();
 
     private Game game;
     private int tick;
@@ -30,14 +34,14 @@ public class GUIApp {
 
         double secondPerTick = 0.2;
         ball = new Ball(Point2D.ZERO, 100, 0.05);
-        ball.lauch(200000, 80);
+        ball.lauch(5000000, 50);
         game = new Game(ball);
         créationPlateau();
         KeyAdapter keykey = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                Physics.apply(ball, secondPerTick);
+                Physics.apply(ball, secondPerTick, WIDTH, HEIGHT);
                 System.out.println("At " + secondPerTick * tick++ + "s [ " + ball + "]");
                 game.repaint();
 
@@ -60,7 +64,7 @@ public class GUIApp {
 
         JFrame frame = new JFrame("Sample Frame");
         frame.add(game);
-        frame.setSize(1920, 1080);
+        frame.setSize(WIDTH, HEIGHT);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -17,8 +17,10 @@ public class Physics {
     }
 
     public static final double GRAVITATIONNAL_ACCELERATION = 9.81;
+    public static final double BOUNCE_RATE = 0.66;
 
-    public static void apply(Ball ball, double deltaT) {
+
+    public static void apply(Ball ball, double deltaT, int width, int height) {
 
 
         Point2D celerity = ball.getCelerity();
@@ -30,10 +32,23 @@ public class Physics {
         coordinates = new Point2D(
                 -tau * (celerity.getX()) * Math.exp(-deltaT / tau) + coordinates.getX() + tau * (celerity.getX()),
                 -tau * (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g * deltaT + coordinates.getY() + tau * (celerity.getY() + tau * g));
-        if (coordinates.getY() <= 30 && celerity.getY() < 0)
+
+        if ((coordinates.getY() <= 30 && celerity.getY() < 0 || coordinates.getY() >= height - 30 && celerity.getY() > 0)
+                && (coordinates.getX() <= 0 && celerity.getX() < 0 || coordinates.getX() >= width - 30 && celerity.getX() > 0))
             celerity = new Point2D(
-                    celerity.getX() * Math.exp(-deltaT / tau), (-0.66)*(
-                    (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
+                    (-BOUNCE_RATE) * (celerity.getX() * Math.exp(-deltaT / tau)),
+                    (-BOUNCE_RATE) * ((celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
+
+        else if (coordinates.getY() <= 30 && celerity.getY() < 0
+                || coordinates.getY() >= height - 30 && celerity.getY() > 0)
+            celerity = new Point2D(
+                    celerity.getX() * Math.exp(-deltaT / tau),
+                    (-BOUNCE_RATE) * (
+                            (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
+        else if (coordinates.getX() <= 0 && celerity.getX() < 0 || coordinates.getX() >= width - 30 && celerity.getX() > 0)
+            celerity = new Point2D(
+                    (-BOUNCE_RATE) * (celerity.getX() * Math.exp(-deltaT / tau)),
+                    ((celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
         else
             celerity = new Point2D(
                     celerity.getX() * Math.exp(-deltaT / tau),
