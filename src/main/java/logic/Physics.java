@@ -30,9 +30,14 @@ public class Physics {
         coordinates = new Point2D(
                 -tau * (celerity.getX()) * Math.exp(-deltaT / tau) + coordinates.getX() + tau * (celerity.getX()),
                 -tau * (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g * deltaT + coordinates.getY() + tau * (celerity.getY() + tau * g));
-        celerity = new Point2D(
-                celerity.getX() * Math.exp(-deltaT / tau),
-                (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g);
+        if (coordinates.getY() <= 30 && celerity.getY() < 0)
+            celerity = new Point2D(
+                    celerity.getX() * Math.exp(-deltaT / tau), -(
+                    (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
+        else
+            celerity = new Point2D(
+                    celerity.getX() * Math.exp(-deltaT / tau),
+                    (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g);
 
         ball.setCelerity(celerity);
         ball.setCoordinates(coordinates);

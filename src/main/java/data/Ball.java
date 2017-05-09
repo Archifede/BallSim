@@ -34,13 +34,6 @@ public class Ball {
 
     }
 
-    public void nextPosition(double deltaT) {
-
-        Physics.apply(this, deltaT);
-
-
-    }
-
     public Point2D getCelerity() {
         return new Point2D(this.celerity.getX(), this.celerity.getY());
     }
