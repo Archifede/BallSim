@@ -17,7 +17,7 @@ public class Physics {
     }
 
     public static final double GRAVITATIONNAL_ACCELERATION = 9.81;
-    public static final double BOUNCE_RATE = 1.22;
+    public static final double BOUNCE_RATE = 0.66;
 
 
     @SuppressWarnings("restriction") // This is for eclipse
