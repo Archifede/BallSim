@@ -34,7 +34,7 @@ public class Physics {
                 -tau * (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g * deltaT + coordinates.getY() + tau * (celerity.getY() + tau * g));
 
         if ((coordinates.getY() <= d/2 && celerity.getY() < 0 || coordinates.getY() >= height - d/2 && celerity.getY() > 0)
-                && (coordinates.getX() <= 0 && celerity.getX() < 0 || coordinates.getX() >= width - d/2 && celerity.getX() > 0))
+                && (coordinates.getX() <= d/2 && celerity.getX() < 0 || coordinates.getX() >= width - d/2 && celerity.getX() > 0))
             celerity = new Point2D(
                     (-BOUNCE_RATE) * (celerity.getX() * Math.exp(-deltaT / tau)),
                     (-BOUNCE_RATE) * ((celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
@@ -45,7 +45,7 @@ public class Physics {
                     celerity.getX() * Math.exp(-deltaT / tau),
                     (-BOUNCE_RATE) * (
                             (celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));
-        else if (coordinates.getX() <= 0 && celerity.getX() < 0 || coordinates.getX() >= width - d/2 && celerity.getX() > 0)
+        else if (coordinates.getX() <= d/2 && celerity.getX() < 0 || coordinates.getX() >= width - d/2 && celerity.getX() > 0)
             celerity = new Point2D(
                     (-BOUNCE_RATE) * (celerity.getX() * Math.exp(-deltaT / tau)),
                     ((celerity.getY() + tau * g) * Math.exp(-deltaT / tau) - tau * g));

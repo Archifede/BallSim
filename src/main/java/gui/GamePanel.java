@@ -29,13 +29,6 @@ public class GamePanel extends JPanel {
 
     }
 
-    private void addRestartButton() {
-        Button button = new Button("Restart");
-        button.addActionListener(e -> {
-            System.out.println("hi");
-        });
-        this.add(button);
-    }
 
     public Ball getBall() {
         return ball;
