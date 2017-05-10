@@ -31,7 +31,7 @@ public class GameFrame extends JFrame {
 
     private void setBorderOnPrimaryPanelInsideTheFrame() {
         JPanel pane = (JPanel) this.getContentPane();
-        pane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        pane.setBorder(BorderFactory.createLineBorder(Color.BLACK,20,true));
     }
 
 }
