@@ -1,6 +1,7 @@
 package app;
 
 import data.Ball;
+import gui.GameFrame;
 import javafx.geometry.Point2D;
 import logic.Physics;
 
@@ -15,34 +16,42 @@ import java.awt.event.MouseEvent;
  * @author Victor
  * @since 09 mai 17h16
  */
+@SuppressWarnings("restriction") // this is for eclipse
 public class GUIApp {
-    public static final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    public static final int WIDTH = gd.getDisplayMode().getWidth();
-    public static final int HEIGHT = gd.getDisplayMode().getHeight();
-
+    
     private Game game;
     private int tick;
+    private Ball ball;
 
-    public GUIApp() {
-        startSim();
-
+   
+	public GUIApp() {
+		
+		int mass = 100;
+		int friction = 10;
+		int diameter = 30;
+		
+		/* since the ball cannot start at the positon (0,0) (otherwise 3/4 of the ball will be outside of the panel 
+		 * the ball needs to actually begin at the position (diameter/2 , diameter/2) */
+		Point2D point = new Point2D(
+				(double) diameter/2,
+				(double) diameter/2
+				);
+        this.ball = new Ball(point, mass, friction, diameter);
     }
 
     public void startSim() {
-        Ball ball;
-
-
-        double secondPerTick = 0.2;
-        ball = new Ball(Point2D.ZERO, 100, 0.05);
-        ball.lauch(5000000, 50);
-        game = new Game(ball);
-        créationPlateau();
+        
+        double secondPerTick = 0.05;
+        
+        this.ball.launch(5000000, 50);
+        this.game = new Game(ball);
+        this.createFrame();
+        
         KeyAdapter keykey = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                Physics.apply(ball, secondPerTick, WIDTH, HEIGHT);
-                System.out.println("At " + secondPerTick * tick++ + "s [ " + ball + "]");
+                Physics.apply(ball, secondPerTick, game.getWidth(), game.getHeight());
                 game.repaint();
 
             }
@@ -59,15 +68,10 @@ public class GUIApp {
         game.requestFocus();
     }
 
-    private void créationPlateau() {
+    private void createFrame() {
 
-
-        JFrame frame = new JFrame("Sample Frame");
+        JFrame frame = new GameFrame();
         frame.add(game);
-        frame.setSize(WIDTH, HEIGHT);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
 }

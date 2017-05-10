@@ -16,8 +16,8 @@ public class ConsoleApp {
         width = 1920;
         height=1080;
         double secondPerTick = 1;
-        ball = new Ball(Point2D.ZERO, 100, 40);
-        ball.lauch(100000, 60);
+        ball = new Ball(Point2D.ZERO, 100, 40,30);
+        ball.launch(100000, 60);
         for (int tick = 0; tick <= 10; tick++) {
             System.out.println("At " + tick + "s [ " + ball +"]");
             Physics.apply(ball, secondPerTick, 1920, 1080);
